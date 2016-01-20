@@ -2,7 +2,9 @@
 package script_utilities;
 use strict;
 use warnings;
+require 'script_utilities.pm';
 
+use script_utilities qw ( logger );
 use base 'Exporter';
 our @EXPORT = qw/ logger check_at_least_one_option /;
 
@@ -52,5 +54,22 @@ sub check_at_least_one_option
 	{
 		return 0;
 	}
+}
+
+######################################################################
+# Sub to write audit lines within a file
+#	@Parms:
+#		$csv_logfile			: path of file to which add log entry
+#		$csv_entry_Line		: Entry line
+#	Return:
+#		none
+######################################################################
+sub csv_line_logger{
+	my $csv_logfile = $_[0];
+	my $csv_entry_Line = $_[1];
+
+	open (MYFILE, ">> $csv_logfile");
+    print MYFILE "$csv_entry_Line";
+    close (MYFILE);
 }
 1;
